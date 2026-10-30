@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXSTER VIP PANEL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        body { background-color: #030308; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        .panel-container { width: 100%; max-width: 420px; background: #09090f; border: 2px solid #ff0044; border-radius: 12px; overflow: hidden; box-shadow: 0 0 35px rgba(255, 0, 68, 0.4); }
+        .panel-header { background: #ff0044; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; font-family: 'Orbitron', sans-serif; font-size: 0.95rem; color: #fff; }
+        .header-btn { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+        .panel-body { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+        .mod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .mod-item { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 10px; }
+        .switch { position: relative; display: inline-block; width: 38px; height: 20px; flex-shrink: 0; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222230; transition: .3s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: #ff0044; box-shadow: 0 0 10px #ff0044; }
+        input:checked + .slider:before { transform: translateX(18px); }
+        .mod-label { font-size: 0.9rem; font-weight: 700; color: #dddddd; }
+        .control-group { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px; }
+        .control-header { display: flex; justify-content: space-between; font-size: 0.85rem; color: #aaa; margin-bottom: 8px; font-weight: bold; }
+        .fov-slider { width: 100%; accent-color: #ff0044; cursor: pointer; }
+        .select-group { display: flex; align-items: center; gap: 10px; }
+        .custom-select { flex: 1; padding: 10px; background: #12121e; border: 1px solid #ff0044; border-radius: 6px; color: #fff; font-size: 0.95rem; font-weight: bold; outline: none; }
+        .panel-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 12px; background: #05050a; border-top: 1px solid rgba(255, 0, 68, 0.2); }
+        .tab-btn { background: #ff0044; border: none; border-radius: 8px; padding: 12px 0; color: white; font-size: 1.2rem; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .tab-btn.inactive { background: #181824; color: #777799; }
+        .toast { text-align: center; font-size: 0.8rem; color: #00f0ff; min-height: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="panel-container">
+        <div class="panel-header">
+            <span>▼ AXSTER VIP - FREE FIRE</span>
+            <button class="header-btn" onclick="alert('Panel Minimized!')">✕</button>
+        </div>
+        <div class="panel-body">
+            <div class="toast" id="toastMsg">> STATUS: ACTIVE & INJECTED</div>
+            <div class="mod-grid">
+                <div class="mod-item">
+                    <label class="switch"><input type="checkbox" checked onchange="toggleHack('Aimbot', this.checked)"><span class="slider"></span></label>
+                    <span class="mod-label">Ativar Aimbot</span>
+                </div>
+                <div class="mod-item">
+                    <label class="switch"><input type="checkbox" onchange="toggleHack('Wall Aim', this.checked)"><span class="slider"></span></label>
+                    <span class="mod-label">Aim Through Wall</span>
+                </div>
+                <div class="mod-item">
+                    <label class="switch"><input type="checkbox" checked onchange="toggleHack('ESP Line', this.checked)"><span class="slider"></span></label>
+                    <span class="mod-label">Exibir Linha (ESP)</span>
+                </div>
+                <div class="mod-item">
+                    <label class="switch"><input type="checkbox" onchange="toggleHack('ESP FOV', this.checked)"><span class="slider"></span></label>
+                    <span class="mod-label">Exibir FOV Box</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-header"><span>Regular FOV Range:</span><span id="fovVal" style="color: #ff0044;">60.0</span></div>
+                <input type="range" class="fov-slider" min="0" max="360" value="60" oninput="updateFOV(this.value)">
+            </div>
+            <div class="select-group">
+                <span class="mod-label" style="width: 90px;">Aim Target:</span>
+                <select class="custom-select" onchange="toggleHack('Target: ' + this.value, true)">
+                    <option value="Head">Cabeça (Headshot)</option>
+                    <option value="Neck">Pescoço (Neck)</option>
+                    <option value="Chest">Peito (Chest)</option>
+                </select>
+            </div>
+        </div>
+        <div class="panel-tabs">
+            <button class="tab-btn">🎯</button>
+            <button class="tab-btn inactive">👁️</button>
+            <button class="tab-btn inactive">⚙️</button>
+            <button class="tab-btn inactive">🪪</button>
+        </div>
+    </div>
+    <script>
+        function updateFOV(val) {
+            document.getElementById('fovVal').innerText = parseFloat(val).toFixed(1);
+            document.getElementById('toastMsg').innerText = `> FOV ADJUSTED TO ${val}°`;
+        }
+        function toggleHack(name, isChecked) {
+            const toast = document.getElementById('toastMsg');
+            if(isChecked) {
+                toast.innerText = `> [ENABLED] ${name.toUpperCase()} INJECTED`;
+                toast.style.color = '#00f0ff';
+            } else {
+                toast.innerText = `> [DISABLED] ${name.toUpperCase()} REMOVED`;
+                toast.style.color = '#ff0044';
+            }
+        }
+    </script>
+</body>
+</html>

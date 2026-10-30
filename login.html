@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXSTER // VIP Login Portal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        body {
+            background-color: #030309; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 20%, rgba(255, 0, 85, 0.2) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.15) 0%, transparent 50%);
+        }
+        .login-card {
+            width: 100%; max-width: 380px; background: rgba(10, 10, 20, 0.92); border: 2px solid #ff0055; border-radius: 20px; padding: 35px 25px;
+            box-shadow: 0 0 40px rgba(255, 0, 85, 0.35); text-align: center;
+        }
+        .logo-badge { width: 65px; height: 65px; background: linear-gradient(135deg, #ff0055, #7a00ff); border-radius: 50%; margin: 0 auto 15px auto; display: flex; justify-content: center; align-items: center; font-size: 2rem; }
+        .brand-title { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: 3px; }
+        .brand-subtitle { font-size: 0.8rem; color: #00f0ff; margin-bottom: 25px; letter-spacing: 2px; font-weight: 700; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-label { font-size: 0.85rem; color: #a0a0c0; margin-bottom: 8px; display: block; font-weight: 700; }
+        .key-input { width: 100%; padding: 14px; background: rgba(5, 5, 15, 0.9); border: 1px solid rgba(255, 0, 85, 0.5); border-radius: 10px; color: #00f0ff; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; text-align: center; outline: none; letter-spacing: 2px; }
+        .btn-login { width: 100%; padding: 14px; background: linear-gradient(135deg, #ff0055 0%, #a100ff 100%); border: none; border-radius: 10px; color: #ffffff; font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px rgba(255, 0, 85, 0.5); }
+        .status-msg { margin-top: 15px; font-size: 0.85rem; font-weight: 700; min-height: 20px; }
+        .success { color: #00f0ff; } .error { color: #ff0055; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo-badge">⚡</div>
+        <div class="brand-title">AXSTER VIP</div>
+        <div class="brand-subtitle">SYSTEM CHEAT INJECTOR v2.0</div>
+        <form id="loginForm">
+            <div class="input-group">
+                <label class="input-label">> ENTER LICENSE KEY:</label>
+                <input type="text" id="licenseKey" class="key-input" placeholder="AXSTER-XXXX-2026" autocomplete="off" required>
+            </div>
+            <button type="submit" class="btn-login">LOGIN TO PANEL</button>
+        </form>
+        <div id="status" class="status-msg"></div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputKey = document.getElementById('licenseKey').value.trim();
+            const status = document.getElementById('status');
+            status.innerHTML = "VERIFYING KEY...";
+            setTimeout(() => {
+                if (inputKey === "AXSTER-VIP-2026") {
+                    status.className = "status-msg success";
+                    status.innerHTML = "✓ ACCESS GRANTED! REDIRECTING...";
+                    setTimeout(() => {
+                        window.location.href = "project2.html";
+                    }, 1000);
+                } else {
+                    status.className = "status-msg error";
+                    status.innerHTML = "✕ INVALID OR EXPIRED KEY!";
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>
